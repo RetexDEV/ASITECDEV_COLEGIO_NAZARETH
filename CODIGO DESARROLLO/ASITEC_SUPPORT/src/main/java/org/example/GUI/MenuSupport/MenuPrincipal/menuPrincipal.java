@@ -1,7 +1,5 @@
 package org.example.GUI.MenuSupport.MenuPrincipal;
 
-import org.example.GUI.MenuSupport.MenuPrincipal.SubMenu.enviarIncidencia;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -18,23 +16,28 @@ public class menuPrincipal {
     private JPanel panelDualmon;
     private JPanel panelCorreo;
     private JLabel redIcon;
-    private JLabel mailIcon;
+    private JLabel incidenciasURL;
     private JLabel dualmonIcon;
 
+    private String urlDuamon = "https://www.dualmon.com/assist/";
+
+    private String urlIncidenciasAulas = "https://docs.google.com/forms/d/e/1FAIpQLSc6Y-2PP-4SXCStcK12RM5bFqVlowHURfyYjgoC1cjvG429wQ/viewform";
+
     public menuPrincipal() {
+
         dualmonIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                abrirDualmonWeb("https://www.dualmon.com/assist/");
+                abrirDualmonWeb(urlDuamon);
 
             }
         });
-        mailIcon.addMouseListener(new MouseAdapter() {
+        incidenciasURL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                envioEmail("asitec@asitec.es");
+                abrirURLIncidencia(urlIncidenciasAulas);
             }
         });
         redIcon.addMouseListener(new MouseAdapter() {
@@ -57,17 +60,15 @@ public class menuPrincipal {
         }
     }
 
-    private void envioEmail(String emailAddress) {
-        JFrame frame = new JFrame("TICKET | ASISTENCIA");
-        frame.setContentPane(new enviarIncidencia().getPanelPrincipalEnviarIncidencia());
-        ImageIcon icon = new ImageIcon(menuPrincipal.class.getResource("/ASITEC-MINIATURA.jpg"));
-        frame.setIconImage(icon.getImage());
-        frame.pack();
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
 
+    private void abrirURLIncidencia(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
 
     private void comprobarRed() {
         try {
@@ -88,7 +89,7 @@ public class menuPrincipal {
 
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("ASITEC | SOPORTE | RMM");
+        JFrame frame = new JFrame("COLEGIO NAZARETH | ASISTENCIA TECNICA");
         frame.setContentPane(new menuPrincipal().panelMenuPrincipal);
         ImageIcon icon = new ImageIcon(menuPrincipal.class.getResource("/ASITEC-MINIATURA.jpg"));
         frame.setIconImage(icon.getImage());
